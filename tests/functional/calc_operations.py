@@ -40,9 +40,33 @@ class TestClass:
     def test_div(self, a, b, c):
         assert self.calc.div(a, b) == c
 
-    def test_zero_division(self):
-        try:
-            self.calc.div(5, 0)
-        except ZeroDivisionError:
-            pytest.fail("Zero division exception not handled.")
+    @pytest.mark.parametrize("a, b, c", [(5, 3, 2), (-10, 4, 2)])
+    def test_rem(self, a, b, c):
+        assert self.calc.rem(a, b) == c
+
+    def test_sqrt(self):
+        assert self.calc.sqrt(16) == 4
+
+    @pytest.mark.parametrize("a, b", [(5, 0), ("qwerty", 0), ([1, 2, 3], 0), (100.6, 0)])
+    def test_checksum(self, a, b):
+        assert self.calc.checksum(a) == 0
+
+    def test_band(self):
+        assert self.calc.band(5, 4) == 4
+
+    def test_bor(self):
+        assert self.calc.bor(6, 9) == 15
+
+    def test_bxor(self):
+        assert self.calc.bxor(9, 11) == 2
+
+    def test_bnot(self):
+        assert self.calc.bnot(11) == -12
+
+    def test_bshl(self):
+        assert self.calc.bshl(5, 3) == 40
+
+    def test_bshr(self):
+        assert self.calc.bshr(10, 3) == 1
+
 
